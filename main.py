@@ -24,7 +24,12 @@ class UserInterface(QMainWindow):
         QtCore.QMetaObject.connectSlotsByName(self)
 
     def setup(self):
-        # configuration window
+        self.setup_window()
+        self.setup_central_widget()
+        self.setup_tab_bar()
+        retranslate_ui(self)
+
+    def setup_window(self):
         self.setObjectName("MainWindow")
         self.setEnabled(True)
         self.resize(800, 800)
@@ -32,11 +37,11 @@ class UserInterface(QMainWindow):
         self.setMaximumSize(QtCore.QSize(800, 800))
         self.setTabletTracking(False)
 
-        # central widget
+    def setup_central_widget(self):
         self.central_widget.setObjectName("central_widget")
         self.setCentralWidget(self.central_widget)
 
-        # tab bar
+    def setup_tab_bar(self):
         self.tab_bar.setObjectName("tab_bar")
         self.tab_bar.setCurrentIndex(3)
         self.tab_bar.setGeometry(QtCore.QRect(0, 0, 801, 801))
@@ -50,19 +55,24 @@ class UserInterface(QMainWindow):
         self.tab_bar.setDocumentMode(False)
         self.tab_bar.setMovable(False)
 
-        # tab main
+        self.setup_tab_main()
+        self.setup_tab_mods()
+        self.setup_tab_maps()
+        self.setup_tab_config()
+
+    def setup_tab_main(self):
         self.tab_main.setObjectName("tab_main")
         self.tab_bar.addTab(self.tab_main, "")
 
-        # tab mods
+    def setup_tab_mods(self):
         self.tab_mods.setObjectName("tab_mods")
         self.tab_bar.addTab(self.tab_mods, "")
 
-        # tab maps
+    def setup_tab_maps(self):
         self.tab_maps.setObjectName("tab_maps")
         self.tab_bar.addTab(self.tab_maps, "")
 
-        # tab config
+    def setup_tab_config(self):
         self.tab_conf.setObjectName("tab_conf")
         self.tab_bar.addTab(self.tab_conf, "")
 
@@ -83,9 +93,6 @@ class UserInterface(QMainWindow):
         self.button_path.setObjectName("button_path")
         self.button_path.setGeometry(QtCore.QRect(0, 30, 101, 41))
         self.button_path.clicked.connect(self.set_heroes_directory)
-
-        # retranslate ui
-        retranslate_ui(self)
 
     def set_heroes_directory(self):
         dirlist = QFileDialog.getExistingDirectory(
