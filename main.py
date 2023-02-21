@@ -1,3 +1,5 @@
+import sys
+
 from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtWidgets import QMainWindow, QFileDialog
 
@@ -11,9 +13,14 @@ class UserInterface(QMainWindow):
         super().__init__()
         self.central_widget = QtWidgets.QWidget(self)
         self.tab_bar = QtWidgets.QTabWidget(self.central_widget)
+
         self.tab_main = QtWidgets.QWidget()
+
         self.tab_mods = QtWidgets.QWidget()
+        self.list_mods = QtWidgets.QListWidget(self.tab_mods)
+
         self.tab_maps = QtWidgets.QWidget()
+
         self.tab_conf = QtWidgets.QWidget()
         self.label_currently_path = QtWidgets.QLabel(self.tab_conf)
         self.label_path_to = QtWidgets.QLabel(self.tab_conf)
@@ -39,6 +46,7 @@ class UserInterface(QMainWindow):
 
     def setup_central_widget(self):
         self.central_widget.setObjectName("central_widget")
+        self.central_widget.setStyleSheet('background-image: url("resources/main_back.jpg");')
         self.setCentralWidget(self.central_widget)
 
     def setup_tab_bar(self):
@@ -46,9 +54,7 @@ class UserInterface(QMainWindow):
         self.tab_bar.setCurrentIndex(3)
         self.tab_bar.setGeometry(QtCore.QRect(0, 0, 801, 801))
         self.tab_bar.setAutoFillBackground(False)
-        self.tab_bar.setStyleSheet(
-            'background-image: url("resources/main_back.jpg");'
-        )
+
         self.tab_bar.setTabPosition(QtWidgets.QTabWidget.North)
         self.tab_bar.setTabShape(QtWidgets.QTabWidget.Rounded)
         self.tab_bar.setElideMode(QtCore.Qt.ElideNone)
@@ -67,6 +73,11 @@ class UserInterface(QMainWindow):
     def setup_tab_mods(self):
         self.tab_mods.setObjectName("tab_mods")
         self.tab_bar.addTab(self.tab_mods, "")
+
+        # list mods
+
+        self.list_mods.setGeometry(QtCore.QRect(455, 10, 331, 761))
+        self.list_mods.setObjectName("list_mods")
 
     def setup_tab_maps(self):
         self.tab_maps.setObjectName("tab_maps")
@@ -105,9 +116,12 @@ class UserInterface(QMainWindow):
 
 
 if __name__ == "__main__":
-    import sys
     app = QtWidgets.QApplication(sys.argv)
+    with open("style.qss", "r") as qss:
+        app.setStyleSheet(qss.read())
+
     ui = UserInterface()
     ui.setup()
     ui.show()
+
     sys.exit(app.exec_())

@@ -149,6 +149,8 @@
    </widget>
   </widget>
  </widget>
- <resources/>
+ <resources>
+  <include location=".qrc"/>
+ </resources>
  <connections/>
 </ui>

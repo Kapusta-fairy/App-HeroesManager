@@ -1,0 +1,6 @@
+QWidget#tab_main {
+	background-image: url(:/resources/main_back.jpg);
+}
+QWidget#tab_mods {
+	background-image: url(:/resources/main_back.jpg);
+}
