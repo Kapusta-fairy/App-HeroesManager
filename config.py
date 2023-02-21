@@ -2,19 +2,24 @@ import os
 from configparser import ConfigParser
 
 
-def save_config(dirlist, conf_path):
-    if not os.path.exists(conf_path):
-        os.makedirs(conf_path)
+class ManagerConfig:
 
-    ini_path = f'{conf_path}/config.ini'
+    def __init__(self):
+        self.conf_path = f'C:\\Users\\{os.getlogin()}\\AppData\\Local\\' \
+                    f'KapustaInc\\HeroesManager'
+        self.conf_file = r'\config.ini'
+        self.ini_path = f'{self.conf_path}{self.conf_file}'
 
-    if not os.path.exists(ini_path):
-        with open(ini_path, 'a') as write_f:
-            write_f.write(f'[settings]\npath = {dirlist}')
+    def save(self, dirlist):
+        if not os.path.exists(self.conf_path):
+            os.makedirs(self.conf_path)
 
+        if not os.path.exists(self.ini_path):
+            with open(self.ini_path, 'a') as write_f:
+                write_f.write(f'[settings]\npath = {dirlist}')
 
-def get_config(conf_path):
-    config = ConfigParser()
-    config.read(f'{conf_path}/config.ini')
+    def get(self):
+        config = ConfigParser()
+        config.read(self.ini_path)
 
-    return config
+        return config
