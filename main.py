@@ -1,7 +1,10 @@
+import os
+
 from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtGui import QFont
 from PyQt5.QtWidgets import QMainWindow, QPlainTextEdit, QFileDialog
 
+from config import save_config
 from retranslate import retranslate_ui
 
 
@@ -20,6 +23,8 @@ class UserInterface(QMainWindow):
         self.button_path = QtWidgets.QPushButton(self.tab_conf)
         self.plain_text_edit = QPlainTextEdit()
         QtCore.QMetaObject.connectSlotsByName(self)
+        self.conf_path = f'C:\\Users\\{os.getlogin()}\\AppData\\Local\\' \
+                         f'KapustaInc\\HeroesManager'
 
     def setup(self):
         # configuration settings
@@ -66,30 +71,31 @@ class UserInterface(QMainWindow):
 
         # label currently path
         self.label_currently_path.setGeometry(QtCore.QRect(100, 30, 691, 41))
-        self.label_currently_path.setText("")
+        self.label_currently_path.setAlignment(QtCore.Qt.AlignCenter)
         self.label_currently_path.setObjectName("label_currently_path")
 
-        # label currently path
-        self.label_path_to.setGeometry(QtCore.QRect(0, 0, 791, 21))
+        # label path to
+        self.label_path_to.setGeometry(QtCore.QRect(100, 0, 691, 21))
         self.label_path_to.setAlignment(QtCore.Qt.AlignCenter)
         self.label_path_to.setObjectName("label_path_to")
 
         # button path
         self.button_path.setObjectName("button_path")
         self.button_path.setGeometry(QtCore.QRect(0, 30, 101, 41))
-        self.button_path.clicked.connect(self.get_directory)
+        self.button_path.clicked.connect(self.set_heroes_directory)
 
         # plain text edit
         self.plain_text_edit.setFont(QFont('Arial', 11))
 
         retranslate_ui(self)
 
-    def get_directory(self):
+    def set_heroes_directory(self):
         dirlist = QFileDialog.getExistingDirectory(
             self,
             "Выберите папку с heroes 5",
             "."
         )
+        save_config(dirlist, self.conf_path)
         self.label_currently_path.setText(dirlist)
 
 
