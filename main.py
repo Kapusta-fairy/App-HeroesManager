@@ -19,12 +19,12 @@ class UserInterface(QMainWindow):
         self.label_path_to = QtWidgets.QLabel(self.tab_conf)
         self.button_path = QtWidgets.QPushButton(self.tab_conf)
 
-        config = ManagerConfig()
+        self.config = ManagerConfig()
 
         QtCore.QMetaObject.connectSlotsByName(self)
 
     def setup(self):
-        # configuration settings
+        # configuration window
         self.setObjectName("MainWindow")
         self.setEnabled(True)
         self.resize(800, 800)
@@ -70,6 +70,8 @@ class UserInterface(QMainWindow):
         self.label_currently_path.setGeometry(QtCore.QRect(100, 30, 691, 41))
         self.label_currently_path.setAlignment(QtCore.Qt.AlignCenter)
         self.label_currently_path.setObjectName("label_currently_path")
+        self.label_currently_path.setText(
+            self.config.get().get('settings', 'path'))
 
         # label path to
         self.label_path_to.setGeometry(QtCore.QRect(100, 0, 691, 21))
@@ -90,7 +92,7 @@ class UserInterface(QMainWindow):
             "Выберите папку с heroes 5",
             "."
         )
-        save_config(dirlist)
+        self.config.save(dirlist)
         self.label_currently_path.setText(dirlist)
 
 

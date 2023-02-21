@@ -1,25 +1,41 @@
 import os
 from configparser import ConfigParser
 
+from data import heroes_paths
+
 
 class ManagerConfig:
 
     def __init__(self):
         self.conf_path = f'C:\\Users\\{os.getlogin()}\\AppData\\Local\\' \
                     f'KapustaInc\\HeroesManager'
-        self.conf_file = r'\config.ini'
-        self.ini_path = f'{self.conf_path}{self.conf_file}'
+        self.ini_path = f'{self.conf_path}\\config.ini'
 
-    def save(self, dirlist):
+        self.save()
+
+    def save(self, dirlist=None):
         if not os.path.exists(self.conf_path):
             os.makedirs(self.conf_path)
 
-        if not os.path.exists(self.ini_path):
-            with open(self.ini_path, 'a') as write_f:
-                write_f.write(f'[settings]\npath = {dirlist}')
+        if dirlist:
+            path = dirlist
+        else:
+            path = self.__heroes_search()
+        if not path:
+            path = 'Путь не найден, укажите вручную'
+
+        with open(self.ini_path, 'w') as write_f:
+            write_f.write(f'[settings]\npath = {path}')
 
     def get(self):
         config = ConfigParser()
         config.read(self.ini_path)
 
         return config
+
+    @staticmethod
+    def __heroes_search():
+        for heroes_path in heroes_paths:
+            if os.path.exists(heroes_path):
+
+                return heroes_path
