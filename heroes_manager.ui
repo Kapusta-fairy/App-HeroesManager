@@ -54,7 +54,7 @@
      <enum>QTabWidget::Rounded</enum>
     </property>
     <property name="currentIndex">
-     <number>3</number>
+     <number>1</number>
     </property>
     <property name="elideMode">
      <enum>Qt::ElideNone</enum>
@@ -77,6 +77,16 @@
      <attribute name="title">
       <string>Моды</string>
      </attribute>
+     <widget class="QListWidget" name="list_mods">
+      <property name="geometry">
+       <rect>
+        <x>455</x>
+        <y>10</y>
+        <width>331</width>
+        <height>761</height>
+       </rect>
+      </property>
+     </widget>
     </widget>
     <widget class="QWidget" name="tab_maps">
      <attribute name="title">

@@ -11,7 +11,8 @@ class ManagerConfig:
                     f'KapustaInc\\HeroesManager'
         self.ini_path = f'{self.conf_path}\\config.ini'
 
-        self.save()
+        if not os.path.exists(self.ini_path):
+            self.save()
 
     def save(self, dirlist=None):
         if not os.path.exists(self.conf_path):

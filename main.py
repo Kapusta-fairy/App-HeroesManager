@@ -71,7 +71,8 @@ class UserInterface(QMainWindow):
         self.label_currently_path.setAlignment(QtCore.Qt.AlignCenter)
         self.label_currently_path.setObjectName("label_currently_path")
         self.label_currently_path.setText(
-            self.config.get().get('settings', 'path'))
+            self.config.get().get('settings', 'path')
+        )
 
         # label path to
         self.label_path_to.setGeometry(QtCore.QRect(100, 0, 691, 21))
