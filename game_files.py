@@ -6,9 +6,10 @@ from config import Config
 class GameFiles:
 
     def __init__(self):
-        self.game_path = None
+        config = Config()
+        self.game_path = config.get().get('settings', 'path')
+        self.conf_path = config.conf_path
         self.directory = None
-        self.conf_path = Config().conf_path
 
     def get_enabled_list(self) -> list:
         return os.listdir(f'{self.game_path}\\{self.directory}')
