@@ -31,21 +31,35 @@
   <property name="windowTitle">
    <string>Менеджер героев</string>
   </property>
-  <widget class="QWidget" name="centralwidget">
+  <property name="styleSheet">
+   <string notr="true">QWidget#tab_main {
+	background-image: url(:/resources/main_back.jpg);
+}
+QWidget#tab_mods {
+	background-image: url(:/resources/main_back.jpg);
+}</string>
+  </property>
+  <widget class="QWidget" name="central_widget">
    <widget class="QTabWidget" name="tab_bar">
     <property name="geometry">
      <rect>
       <x>0</x>
       <y>0</y>
-      <width>801</width>
-      <height>801</height>
+      <width>800</width>
+      <height>800</height>
      </rect>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>16777215</width>
+      <height>16777215</height>
+     </size>
     </property>
     <property name="autoFillBackground">
      <bool>false</bool>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-image: url(:/resources/dwarves.jpg);</string>
+     <string notr="true"/>
     </property>
     <property name="tabPosition">
      <enum>QTabWidget::North</enum>
@@ -77,15 +91,27 @@
      <attribute name="title">
       <string>Моды</string>
      </attribute>
-     <widget class="QListWidget" name="list_mods">
+     <widget class="QWidget" name="verticalLayoutWidget">
       <property name="geometry">
        <rect>
-        <x>455</x>
+        <x>529</x>
         <y>10</y>
-        <width>331</width>
-        <height>761</height>
+        <width>261</width>
+        <height>751</height>
        </rect>
       </property>
+      <layout class="QVBoxLayout" name="mods_layout">
+       <property name="sizeConstraint">
+        <enum>QLayout::SetDefaultConstraint</enum>
+       </property>
+       <item>
+        <widget class="QCheckBox" name="checkBox">
+         <property name="text">
+          <string>абоба</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </widget>
     </widget>
     <widget class="QWidget" name="tab_maps">
