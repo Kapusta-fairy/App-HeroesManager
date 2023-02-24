@@ -1,5 +1,7 @@
 import os
 
+from PyQt5.QtCore import Qt
+
 from config import Config
 
 
@@ -36,9 +38,15 @@ class Mods(GameFiles):
         super().__init__()
         self.directory = r'UserMODs'
 
+        if not os.path.exists(f'{self.conf_path}\\{self.directory}'):
+            os.makedirs(f'{self.conf_path}\\{self.directory}')
+
 
 class Maps(GameFiles):
 
     def __init__(self):
         super().__init__()
         self.directory = r'Maps'
+
+        if not os.path.exists(f'{self.conf_path}\\{self.directory}'):
+            os.makedirs(f'{self.conf_path}\\{self.directory}')

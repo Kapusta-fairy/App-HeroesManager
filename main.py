@@ -1,9 +1,11 @@
 import sys
 
 from PyQt5 import QtCore, QtWidgets
+from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QMainWindow, QFileDialog
 
-from config import ManagerConfig
+from config import Config
+from game_files import Mods
 from retranslate import retranslate_ui
 
 
@@ -16,8 +18,11 @@ class UserInterface(QMainWindow):
 
         self.tab_main = QtWidgets.QWidget()
 
+        self.mods = Mods()
         self.tab_mods = QtWidgets.QWidget()
-        self.list_mods = QtWidgets.QListWidget(self.tab_mods)
+        self.mods_widget = QtWidgets.QWidget(self.tab_mods)
+        self.vertical_Layout_widget = QtWidgets.QWidget(self.tab_mods)
+        self.mods_layout = QtWidgets.QVBoxLayout(self.vertical_Layout_widget)
 
         self.tab_maps = QtWidgets.QWidget()
 
@@ -26,8 +31,7 @@ class UserInterface(QMainWindow):
         self.label_path_to = QtWidgets.QLabel(self.tab_conf)
         self.button_path = QtWidgets.QPushButton(self.tab_conf)
 
-        self.config = ManagerConfig()
-
+        self.config = Config()
         QtCore.QMetaObject.connectSlotsByName(self)
 
     def setup(self):
@@ -46,7 +50,6 @@ class UserInterface(QMainWindow):
 
     def setup_central_widget(self):
         self.central_widget.setObjectName("central_widget")
-        self.central_widget.setStyleSheet('background-image: url("resources/main_back.jpg");')
         self.setCentralWidget(self.central_widget)
 
     def setup_tab_bar(self):
@@ -74,10 +77,44 @@ class UserInterface(QMainWindow):
         self.tab_mods.setObjectName("tab_mods")
         self.tab_bar.addTab(self.tab_mods, "")
 
-        # list mods
+        # mods widget
+        self.mods_widget.setGeometry(QtCore.QRect(520, 9, 261, 751))
+        self.mods_widget.setObjectName("mods_widget")
 
-        self.list_mods.setGeometry(QtCore.QRect(455, 10, 331, 761))
-        self.list_mods.setObjectName("list_mods")
+        # vertical_Layout_widget
+        self.vertical_Layout_widget.setGeometry(QtCore.QRect(520, 9, 261, 751))
+        self.vertical_Layout_widget.setObjectName("vertical_Layout_widget")
+
+        # mods layout
+        self.mods_layout.setContentsMargins(10, 10, 10, 10)
+        self.mods_layout.setObjectName("mods_layout")
+
+        enabled_list = self.mods.get_enabled_list()
+        disabled_list = self.mods.get_disabled_list()
+
+        for mod in enabled_list:
+            index = enabled_list.index(mod)
+            self.create_check_box(index, mod)
+            exec(f'self.check_box_{index}.setChecked(True)')
+
+        for mod in disabled_list:
+            index = enabled_list.index(mod)
+            self.create_check_box(index, mod)
+
+    def create_check_box(self, index, item):
+        # func = exec(f"""def state_change_{index}(self, state):
+        #              if state == Qt.Checked:
+        #                  self.mods.enable({item})
+        #              else:
+        #                  self.mods.disable(mod)
+        #              func = state_change_{index}"""
+        #             )
+        #
+        # exec(f'self.state_change_{index} = state_change_{index}')
+        exec(f'self.check_box_{index} = QtWidgets.QCheckBox(self.vertical_Layout_widget)')
+        exec(f'self.check_box_{index}.setObjectName("check_box_{index}")')
+        # exec(f'self.check_box_{index}.stateChanged.connect(self.state_change_{index})')
+        exec(f'self.mods_layout.addWidget(self.check_box_{index})')
 
     def setup_tab_maps(self):
         self.tab_maps.setObjectName("tab_maps")
@@ -113,6 +150,9 @@ class UserInterface(QMainWindow):
         )
         self.config.save(dirlist)
         self.label_currently_path.setText(dirlist)
+
+
+
 
 
 if __name__ == "__main__":

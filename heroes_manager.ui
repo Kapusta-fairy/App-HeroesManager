@@ -91,27 +91,46 @@ QWidget#tab_mods {
      <attribute name="title">
       <string>Моды</string>
      </attribute>
-     <widget class="QWidget" name="verticalLayoutWidget">
+     <widget class="QWidget" name="mods_widget" native="true">
       <property name="geometry">
        <rect>
-        <x>529</x>
-        <y>10</y>
+        <x>520</x>
+        <y>9</y>
         <width>261</width>
         <height>751</height>
        </rect>
       </property>
-      <layout class="QVBoxLayout" name="mods_layout">
-       <property name="sizeConstraint">
-        <enum>QLayout::SetDefaultConstraint</enum>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgba(255, 255, 255, 190);</string>
+      </property>
+      <widget class="QWidget" name="verticalLayoutWidget">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>10</y>
+         <width>241</width>
+         <height>731</height>
+        </rect>
        </property>
-       <item>
-        <widget class="QCheckBox" name="checkBox">
-         <property name="text">
-          <string>абоба</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
+       <layout class="QVBoxLayout" name="mods_layout">
+        <property name="sizeConstraint">
+         <enum>QLayout::SetDefaultConstraint</enum>
+        </property>
+        <item>
+         <widget class="QCheckBox" name="checkBox">
+          <property name="text">
+           <string>абоба</string>
+          </property>
+          <property name="checkable">
+           <bool>true</bool>
+          </property>
+          <property name="checked">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
      </widget>
     </widget>
     <widget class="QWidget" name="tab_maps">

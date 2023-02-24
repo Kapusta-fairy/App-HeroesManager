@@ -1,6 +1,18 @@
 QWidget#tab_main {
-	background-image: url(:/resources/main_back.jpg);
+	background-image: url('resources/main_back.jpg');
 }
+
 QWidget#tab_mods {
-	background-image: url(:/resources/main_back.jpg);
+	background-image: url('resources/main_back.jpg');
+}
+
+QWidget#tab_maps {
+	background-image: url('resources/main_back.jpg');
+}
+
+QWidget#tab_conf {
+	background-image: url('resources/main_back.jpg');
+}
+QWidget#mods_widget {
+	background-color: rgba(255, 255, 255, 190);
 }

@@ -4,7 +4,7 @@ from configparser import ConfigParser
 from data import heroes_paths
 
 
-class ManagerConfig:
+class Config:
 
     def __init__(self):
         self.conf_path = f'C:\\Users\\{os.getlogin()}\\AppData\\Local\\' \
